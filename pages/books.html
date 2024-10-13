@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <script type="module" src="../js/fileViewer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <script type="module">
+        import { initializeFileViewer } from '../js/fileViewer.js';
+        window.onload = function() {
+            initializeFileViewer('Books');
+        }
+    </script>
+
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:white;
+            text-decoration: None;
+         }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #171b33;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #222947;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-bottom: 2rem;
+            margin-left: 20px;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            width: 100%;
+        }
+
+        .nav-links li {
+            width: 100%;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #3d4e83;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            color: white;
+            min-height: 100vh;
+            background-color: #1d253f;
+            transition: margin-left 0.3s ease;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        h2 {
+            margin: 20px 0 10px;
+            color: #fff;
+        }
+
+        /* File List */
+        #file-list {
+            padding: 20px;
+            margin:2px 10px;
+            background-color: #2f4070;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        /* PDF Viewer */
+        #viewer {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: 700px;
+            overflow-y: scroll;
+        }
+
+        #canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        /* PDF Controls */
+        .pdf-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .pdf-controls button {
+            background-color: #3d5afe;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pdf-controls button:hover {
+            background-color: #303f9f;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        /* Style for links */
+
+
+/* Style for delete buttons */
+#file-list button {
+    background-color: #ff4d4d; /* Red background */
+    color: #ffffff; /* White text */
+    border: none; /* No border */
+    padding: 4px; /* Padding for better size */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    font-size: 14px; /* Font size */
+    position: absolute; /* Use absolute positioning */
+    right: 100px; /* Align it 10px from the right */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+}
+
+button:hover {
+    background-color: #ff1a1a; /* Darker red on hover */
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+
+
+    <div class="main-content">
+        <div class="header-container">
+        <h1>CheckList</h1>
+        <div id="file-list">Loading files...</div>
+    </div>
+        <!-- <h2>File Viewer</h2> -->
+        <div id="viewer">
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <!-- PDF Viewer controls -->
+        <div class="pdf-controls">
+            <button id="prev-page">Previous Page</button>
+            <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
+            <button id="next-page">Next Page</button>
+        </div>
+
+        <script>
+            // Load the navbar using AJAX
+            $(document).ready(function() {
+                $("#navbar-container").load("navbar.html");
+            });
+        </script>
+    </div>
+</body>
+</html>

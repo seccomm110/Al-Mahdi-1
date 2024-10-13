@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page with Navbar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+</head>
+<body>
+    <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+    
+ 
+    <div class="main-content">
+
+        <div id="xlsxContent"></div>
+        <script>
+            function displayXLSX() {
+                fetch('../files/ABC.xlsx')
+                    .then(response => response.arrayBuffer())
+                    .then(data => {
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const sheetName = workbook.SheetNames[0]; // Get the first sheet name
+                        const worksheet = workbook.Sheets[sheetName];
+    
+                        // Convert the worksheet to HTML
+                        const html = XLSX.utils.sheet_to_html(worksheet);
+    
+                        // Insert the HTML into the page
+                        document.getElementById('xlsxContent').innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching or parsing the XLSX file:', error);
+                        document.getElementById('xlsxContent').innerHTML = '<p>Error loading the XLSX file.</p>';
+                    });
+            }
+    
+            // Call the function to display the XLSX content
+            displayXLSX();
+        </script>
+   
+    
+    <script>
+        // Load the navbar using AJAX
+        $(document).ready(function() {
+            $("#navbar-container").load("navbar.html");
+        });
+    </script>
+</body>
+</html>

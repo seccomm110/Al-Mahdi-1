@@ -1,0 +1,191 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #171b33;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #222947;
+    border-right:#ccc 2px solid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}
+
+.logo{
+    border-bottom:#ccc 2px solid;
+}
+
+.logo h3 {
+    font-size: 250%;
+    color:#fff;
+    text-align: center;
+}
+
+.nav-links {
+    list-style-type: none;
+    width: 100%;
+}
+
+.nav-links li {
+    width: 100%;
+}
+
+.nav-links a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #3d4e83;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    background-color: #2f4070;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 200px;
+}
+
+.dropdown-content a {
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 200px;
+    padding: 2rem;
+    color: white;
+    min-height: 100vh;
+    background-color: #1d253f;
+    transition: margin-left 0.3s ease;
+}
+
+/* File List */
+.file-list {
+    margin-bottom: 2rem;
+}
+/* Example styles for the generated table */
+#xlsxContent table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#xlsxContent th, #xlsxContent td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+#xlsxContent th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        margin-left: 200px;
+    }
+    .nav-links a {
+        padding: 0.8rem 1rem;
+    }
+    .file-link {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+tr{
+    border-collapse: collapse;
+}
+ th,  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+
+
+ th {
+    background-color: #007bff;
+    color: #fff;
+}
+/* 
+
+
+td {
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    padding: 12px;
+    color: #ffffff; 
+    background-color: #2f4070; 
+    transition: background-color 0.3s;
+}
+
+td:hover {
+    background-color: #3d4e83; 
+} */
+
+
+/* Webkit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+/* Background of the entire scrollbar */
+::-webkit-scrollbar-track {
+    background-color: red; /* White background for scrollbar */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Scrollbar thumb (the part you drag) */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb); /* Colorful gradient */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 3px solid white; /* Optional: adds space around the thumb for better visual */
+}
+
+/* Hover effect for the scrollbar thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ff758c, #ff7eb3); /* Slightly darker gradient on hover */
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ff758c #222947; /* Thumb color and track color */
+}
+
+

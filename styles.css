@@ -1,0 +1,142 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #171b33;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #222947;
+    border-right:#ccc 2px solid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}
+
+.logo{
+    border-bottom:#ccc 2px solid;
+}
+
+.logo h3 {
+    font-size: 250%;
+    color:#fff;
+    text-align: center;
+}
+
+.nav-links {
+    list-style-type: none;
+    width: 100%;
+}
+
+.nav-links li {
+    width: 100%;
+}
+
+.nav-links a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #3d4e83;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    background-color: #2f4070;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 200px;
+}
+
+.dropdown-content a {
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 200px;
+    padding: 2rem;
+    color: white;
+    min-height: 100vh;
+    background-color: #1d253f;
+    transition: margin-left 0.3s ease;
+}
+
+/* File List */
+.file-list {
+    margin-bottom: 2rem;
+}
+/* Example styles for the generated table */
+#xlsxContent table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#xlsxContent th, #xlsxContent td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+#xlsxContent th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        margin-left: 200px;
+    }
+    .nav-links a {
+        padding: 0.8rem 1rem;
+    }
+    .file-link {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+
+td {
+    border-top: 1px solid white; /* Top border */
+    border-right: 1px solid white; /* Right border */
+    padding: 12px; /* Add some padding for better spacing */
+    color: #ffffff; /* Text color */
+    background-color: #2f4070; /* Background color for a better contrast */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+td:hover {
+    background-color: #3d4e83; /* Change background on hover for interactivity */
+}

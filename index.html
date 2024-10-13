@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="../js/fileViewer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            height: 90%;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .card {
+            border: 2px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .vertical {
+            width: 30%; /* Width for vertical card */
+            height: 80%; /* Height for vertical card */
+        }
+
+        .horizontal {
+            width: 30%; /* Width for horizontal cards */
+            height: 40%; /* Height for horizontal cards */
+        }
+
+        .content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 100;
+            padding: 20px;
+            overflow-y: auto; /* Allow scrolling if content is too long */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+            text-align: left; /* Align list to the left */
+        }
+
+        .file-list li {
+            margin: 10px 0;
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .file-list li:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card vertical">
+            <h2>Available Excel Files</h2>
+            <ul class="file-list">
+                <li onclick="loadFile('path/to/file1.xlsx')">File 1</li>
+                <li onclick="loadFile('path/to/file2.xlsx')">File 2</li>
+                <li onclick="loadFile('path/to/file3.xlsx')">File 3</li>
+                <li onclick="loadFile('path/to/file4.xlsx')">File 4</li>
+                <li onclick="loadFile('path/to/file5.xlsx')">File 5</li>
+            </ul>
+        </div>
+
+        <div class="card horizontal">
+            <h2>Card 2</h2>
+            <p>Content for card 2.</p>
+        </div>
+        <div class="card horizontal">
+            <h2>Card 3</h2>
+            <p>Content for card 3.</p>
+        </div>
+        <div class="card horizontal">
+            <h2>Card 4</h2>
+            <p>Content for card 4.</p>
+        </div>
+        <div class="card horizontal">
+            <h2>Card 5</h2>
+            <p>Content for card 5.</p>
+        </div>
+    </div>
+
+    <div id="content" class="content hidden">
+        <div class="close-button" onclick="closeContent()">✖</div>
+        <div id="fileContent"></div>
+    </div>
+
+    <script>
+        function loadFile(filePath) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.arrayBuffer();
+                })
+                .then(data => {
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+                    displayContent(jsonData);
+                })
+                .catch(error => {
+                    console.error('Error loading file:', error);
+                    alert('Failed to load file. Please check the path or try again.');
+                });
+        }
+
+        function displayContent(data) {
+            const fileContent = document.getElementById('fileContent');
+            fileContent.innerHTML = '';
+
+            data.forEach(row => {
+                const rowDiv = document.createElement('div');
+                rowDiv.textContent = row.join(', ');
+                fileContent.appendChild(rowDiv);
+            });
+
+            document.getElementById('content').classList.remove('hidden');
+            document.querySelector('.container').style.display = 'none'; // Hide cards
+        }
+
+        function closeContent() {
+            document.getElementById('content').classList.add('hidden');
+            document.querySelector('.container').style.display = 'flex'; // Show cards
+        }
+    </script>
+    <script>
+        // Load the navbar using AJAX
+        $(document).ready(function() {
+            $("#navbar-container").load("navbar.html");
+        });
+    </script>
+</body>
+</html>
